@@ -16,14 +16,36 @@ export default function EditorCanvas() {
 
     const handleImageUpload = (
         e: React.ChangeEvent<HTMLInputElement>,
-        setter: (img: HTMLImageElement) => void
+        setter: (img: HTMLImageElement) => void,
+        resizeTo?: { width: number; height: number }
     ) => {
         const file = e.target.files?.[0];
         if (!file) return;
+
         const img = new Image();
         img.src = URL.createObjectURL(file);
-        img.onload = () => setter(img);
+
+        img.onload = () => {
+            if (!resizeTo) {
+                setter(img); // langsung set kalau nggak perlu resize
+                return;
+            }
+
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = resizeTo.width;
+            tempCanvas.height = resizeTo.height;
+
+            const ctx = tempCanvas.getContext('2d');
+            if (!ctx) return;
+
+            ctx.drawImage(img, 0, 0, resizeTo.width, resizeTo.height);
+
+            const resized = new Image();
+            resized.src = tempCanvas.toDataURL();
+            resized.onload = () => setter(resized);
+        };
     };
+
 
     const drawCroppedImage = (
         ctx: CanvasRenderingContext2D,
@@ -146,7 +168,8 @@ export default function EditorCanvas() {
                         <input
                             type="file"
                             accept="image/*"
-                            onChange={(e) => handleImageUpload(e, item.setter)}
+                            onChange={
+                                (e) => handleImageUpload(e, item.setter, { width: 1600, height: 720 })}
                             className="mt-1 w-full rounded border border-gray-300 bg-white text-black file:mr-2 file:rounded file:border-0 file:bg-[#471396] file:px-3 file:py-1 file:text-white"
                         />
                     </label>
