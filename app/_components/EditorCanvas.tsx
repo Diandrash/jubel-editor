@@ -85,7 +85,10 @@ export default function EditorCanvas() {
 
     const drawRellCanvas = () => {
         const canvas = canvasRef.current;
-        if (!canvas || !profileImg || !skinImg || !secondSkinImg || !heroCountImg) return;
+        if (!canvas || !profileImg || !skinImg || !secondSkinImg || !heroCountImg) {
+            alert('Please fill all required field')
+            return;
+        }
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
@@ -159,7 +162,10 @@ export default function EditorCanvas() {
 
     const drawHamzCanvas = () => {
         const canvas = canvasRef.current;
-        if (!canvas || !profileImg || !skinImg || !secondSkinImg || !recallImg || !spawnImg || !emoteImg || !eliminationImg || !magicWheelImg) return;
+        if (!canvas || !profileImg || !skinImg || !secondSkinImg || !recallImg || !spawnImg || !emoteImg || !eliminationImg || !magicWheelImg) {
+            alert('Please fill all required field')
+            return
+        };
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
@@ -176,8 +182,8 @@ export default function EditorCanvas() {
         const cropStartYBot = cropStartYTop + spacing.y;
 
         const destStartX = 840;
-        const destStartYTop = 40;
-        const destStartYBot = 278;
+        const destStartYTop = 30;
+        const destStartYBot = 268;
         const destStepX = 148;
 
         const generateSkins = (rowY: number, destY: number): CropConfig[] =>
@@ -222,7 +228,7 @@ export default function EditorCanvas() {
                 width: 300,
                 height: 550,
             },
-            dest: { x: 10, y: destStartYBot - 10 },
+            dest: { x: 25, y: destStartYBot - 15 },
         }
 
         const goldInfo: CropConfig = {
@@ -232,7 +238,7 @@ export default function EditorCanvas() {
                 width: 280,
                 height: 50,
             },
-            dest: { x: 10, y: destStartYBot - 60 },
+            dest: { x: 25, y: destStartYBot - 65 },
         }
 
         const magicWheelInfo: CropConfig = {
@@ -242,7 +248,7 @@ export default function EditorCanvas() {
                 width: 280,
                 height: 50,
             },
-            dest: { x: 10, y: destStartYBot - 110 },
+            dest: { x: 25, y: destStartYBot - 115 },
         }
 
         const recallInfo: CropConfig = {
@@ -252,7 +258,7 @@ export default function EditorCanvas() {
                 width: 110,
                 height: 110,
             },
-            dest: { x: 10, y: destStartYBot - 235 },
+            dest: { x: 25, y: destStartYTop },
         }
 
         const eliminationInfo: CropConfig = {
@@ -262,7 +268,7 @@ export default function EditorCanvas() {
                 width: 110,
                 height: 110,
             },
-            dest: { x: 10 + 120, y: destStartYBot - 235 },
+            dest: { x: 25 + 120, y: destStartYTop },
         }
 
         const emoteInfo: CropConfig = {
@@ -272,7 +278,7 @@ export default function EditorCanvas() {
                 width: 635,
                 height: 110,
             },
-            dest: { x: destStartX + 230, y: destStartYBot + 255 },
+            dest: { x: destStartX + 230, y: destStartYBot + 245 },
         }
 
         const spawnInfo: CropConfig = {
@@ -282,7 +288,7 @@ export default function EditorCanvas() {
                 width: 635,
                 height: 110,
             },
-            dest: { x: destStartX + 230, y: destStartYBot + 345 },
+            dest: { x: destStartX + 230, y: destStartYBot + 335 },
         }
 
         // const skinCount: CropConfig = {
